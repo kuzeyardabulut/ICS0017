@@ -79,3 +79,30 @@ To: 1167.189385 USD
 Rate: 1 EUR = 1.167189 USD
 ==========================================
 
+
+========= CURRENCY EXCHANGE RECEIPT =========
+Transaction ID: 32
+Date: 2025-09-30 13:38:15
+From: 10000.000000 LOC
+To: 241.254524 USD
+Rate: 1 LOC = 0.024125 USD
+==========================================
+
+
+========= CURRENCY EXCHANGE RECEIPT =========
+Transaction ID: 33
+Date: 2025-09-30 13:38:39
+From: 1000.000000 EUR
+To: 859.936011 GBP
+Rate: 1 EUR = 0.859936 GBP
+==========================================
+
+
+========= CURRENCY EXCHANGE RECEIPT =========
+Transaction ID: 34
+Date: 2025-09-30 13:38:50
+From: 1000.000000 EUR
+To: 172785.714286 JPY
+Rate: 1 EUR = 172.785714 JPY
+==========================================
+

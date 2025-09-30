@@ -7,11 +7,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
 #include <algorithm>
 #include <dirent.h>
-
-// Use MAX_CUR from utils.hpp to avoid duplication and potential mismatches
 
 const char * const CUR_NAME[MAX_CUR] = { "LOC", "USD", "EUR", "GBP", "JPY" };
 const int D_COUNT[MAX_CUR] =  { 9, 7, 7, 7, 7 };
@@ -22,8 +19,7 @@ const int DENOMS_GBP[] = { 50, 20, 10, 5, 2, 1, 0 };
 const int DENOMS_JPY[] = { 10000, 5000, 2000, 1000, 500, 100, 50 };
 const int * const DENOMS[MAX_CUR] = { DENOMS_LOC, DENOMS_USD, DENOMS_EUR, DENOMS_GBP, DENOMS_JPY };
 
-// Use vector for automatic lifetime management and RAII
-std::vector<Currency> currencies;
+Currency *currencies = nullptr;
 
 double profit_loc = 0.0;
 char current_date[64] = "N/A";
@@ -32,22 +28,29 @@ int last_transaction_id = 0;
 static const char *RECEIPT_FILE = "receipts_%s.txt";
 
 int load_last_tx_id(void) {
-    std::ifstream f("last_tx_id.txt");
-    if (!f) return 0;
-    int id = 0;
-    f >> id;
-    if (!f) id = 0;
-    return id;
+    try {
+        std::ifstream f("last_tx_id.txt");
+        if (!f) return 0;
+        int id = 0;
+        f >> id;
+        if (!f) id = 0;
+        return id;
+    } catch (...) {
+        return 0;
+    }
 }
 
 void save_last_tx_id(int id) {
-    std::ofstream f("last_tx_id.txt");
-    if (!f) return;
-    f << id << '\n';
+    try {
+        std::ofstream f("last_tx_id.txt");
+        if (!f) return;
+        f << id << '\n';
+    } catch (...) {
+        // ignore
+    }
 }
 
 void clear_input(void) {
-    // In C++ we will clear the remaining input line from stdin
     std::cin.clear();
     std::string tmp;
     std::getline(std::cin, tmp);
@@ -110,9 +113,14 @@ double ask_double(const char *prompt, double min, double max) {
 }
 
 void init_defaults(void) {
-    currencies.clear();
-    currencies.resize(MAX_CUR);
+    if (currencies) free(currencies);
+    currencies = (Currency *)malloc(sizeof(Currency) * MAX_CUR);
+    if (!currencies) {
+        std::fprintf(stderr, "Memory allocation failed for currencies!\n");
+        std::exit(1);
+    }
     for (int i = 0; i < MAX_CUR; ++i) {
+    currencies[i] = Currency();
         const char *src = CUR_NAME[i];
         std::strncpy(currencies[i].name, src, MAX_NAME-1);
         currencies[i].name[MAX_NAME-1] = '\0';
@@ -145,8 +153,11 @@ void init_defaults(void) {
 }
 
 void shutdown() {
-    // Persist last transaction id on exit
     save_last_tx_id(last_transaction_id);
+    if (currencies) {
+        free(currencies);
+        currencies = nullptr;
+    }
 }
 
 void make_daily_csv_name(const char *date_text, char *out, size_t cap) {
@@ -189,17 +200,13 @@ double csv_sum_profit_for_date(const char *date_text, int *tx_count_out) {
     }
 
     std::string line;
-    // skip header line
     if (!std::getline(f, line)) { if (tx_count_out) *tx_count_out = 0; return 0.0; }
 
     double total_profit = 0.0;
     int count = 0;
 
     while (std::getline(f, line)) {
-    (void)line; // line is used below via parts; avoid unused-variable warnings
-
-        // Try new format first (with tx_id)
-        // We'll parse by comma positions
+    (void)line;
         std::vector<std::string> parts;
         std::string token;
         std::istringstream partss(line);
@@ -220,7 +227,6 @@ double csv_sum_profit_for_date(const char *date_text, int *tx_count_out) {
                 continue;
             } catch (...) {}
         }
-        // else skip
     }
 
     if (tx_count_out) *tx_count_out = count;
@@ -333,7 +339,6 @@ int csv_list_transactions_for_date(const char *date_text) {
     std::printf("Transactions in %s:\n", fname);
     int printed = 0;
     while (std::getline(f, line)) {
-        // Trim newline/carriage returns already removed by getline
         if (line.empty()) continue;
         std::printf("%s\n", line.c_str());
         printed++;
@@ -384,8 +389,6 @@ int csv_append_manual_transaction(const char *date_text, int tx_id,
         std::fprintf(stderr, "Could not open %s for appending: %s\n", fname, std::strerror(errno));
         return -1;
     }
-    // Ensure header exists
-    // We'll open a FILE* to check position
     FILE *cf = fopen(fname, "r+");
     if (cf) { ensure_csv_header(cf); fclose(cf); }
 

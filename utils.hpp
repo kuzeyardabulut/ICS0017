@@ -33,7 +33,7 @@ struct Currency {
     double sell_to_loc{0.0};
 };
 
-extern std::vector<Currency> currencies;
+extern Currency *currencies;
 extern const char * const CUR_NAME[MAX_CUR];
 extern const int * const DENOMS[MAX_CUR];
 extern const int D_COUNT[MAX_CUR];

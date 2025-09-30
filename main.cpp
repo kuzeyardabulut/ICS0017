@@ -13,7 +13,6 @@ static int choose_currency(const char *prompt) {
     return c;
 }
 
-// CurrencyManager encapsulates conversions and reserve checks
 static CurrencyManager cm;
 
 static void pay_in_denoms(int cur, double amount) {
@@ -193,7 +192,6 @@ static void scenario_mgmt_crit(void) {
 
 static void scenario_show_balances(void) {
     std::cout << "\n[*] Current Balances\n";
-    // Print balances using fixed notation to avoid scientific format for large integers
     std::ios oldState(nullptr);
     oldState.copyfmt(std::cout);
     std::cout.setf(std::ios::fixed); std::cout.precision(6);
@@ -245,7 +243,6 @@ static void show_menu(void) {
 
 int main() {
     init_defaults();
-    // Ensure we persist runtime state on normal exit
     std::atexit(shutdown);
     time_t t = time(NULL);
     struct tm *tm_info = localtime(&t);
