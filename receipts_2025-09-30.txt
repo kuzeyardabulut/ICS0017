@@ -1,0 +1,81 @@
+
+========= CURRENCY EXCHANGE RECEIPT =========
+Transaction ID: 1
+Date: 2025-09-30 09:53:24
+From: 100000.000000 LOC
+To: 2412.545235 USD
+Rate: 1 LOC = 0.024125 USD
+==========================================
+
+
+========= CURRENCY EXCHANGE RECEIPT =========
+Transaction ID: 3
+Date: 2025-09-30 09:53:48
+From: 10000.000000 LOC
+To: 35714.285714 JPY
+Rate: 1 LOC = 3.571429 JPY
+==========================================
+
+
+========= CURRENCY EXCHANGE RECEIPT =========
+Transaction ID: 4
+Date: 2025-09-30 09:53:53
+From: 1000.000000 EUR
+To: 859.936011 GBP
+Rate: 1 EUR = 0.859936 GBP
+==========================================
+
+
+========= CURRENCY EXCHANGE RECEIPT =========
+Transaction ID: 6
+Date: 2025-09-30 09:59:33
+From: 10000.000000 LOC
+To: 241.254524 USD
+Rate: 1 LOC = 0.024125 USD
+==========================================
+
+
+========= CURRENCY EXCHANGE RECEIPT =========
+Transaction ID: 7
+Date: 2025-09-30 09:59:37
+From: 1000.000000 EUR
+To: 1167.189385 USD
+Rate: 1 EUR = 1.167189 USD
+==========================================
+
+
+========= CURRENCY EXCHANGE RECEIPT =========
+Transaction ID: 28
+Date: 2025-09-30 10:04:05
+From: 100000.000000 LOC
+To: 2412.545235 USD
+Rate: 1 LOC = 0.024125 USD
+==========================================
+
+
+========= CURRENCY EXCHANGE RECEIPT =========
+Transaction ID: 29
+Date: 2025-09-30 10:06:09
+From: 10000.000000 LOC
+To: 35714.285714 JPY
+Rate: 1 LOC = 3.571429 JPY
+==========================================
+
+
+========= CURRENCY EXCHANGE RECEIPT =========
+Transaction ID: 30
+Date: 2025-09-30 10:06:12
+From: 100.000000 EUR
+To: 85.993601 GBP
+Rate: 1 EUR = 0.859936 GBP
+==========================================
+
+
+========= CURRENCY EXCHANGE RECEIPT =========
+Transaction ID: 31
+Date: 2025-09-30 10:07:19
+From: 1000.000000 EUR
+To: 1167.189385 USD
+Rate: 1 EUR = 1.167189 USD
+==========================================
+

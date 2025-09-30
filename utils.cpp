@@ -9,6 +9,7 @@
 #include <sstream>
 
 #include <algorithm>
+#include <dirent.h>
 
 // Use MAX_CUR from utils.hpp to avoid duplication and potential mismatches
 
@@ -226,6 +227,53 @@ double csv_sum_profit_for_date(const char *date_text, int *tx_count_out) {
     return total_profit;
 }
 
+double csv_sum_profit_for_month(const char *year_month, int *tx_count_out) {
+    DIR *d = opendir(".");
+    if (!d) {
+        if (tx_count_out) *tx_count_out = 0;
+        return 0.0;
+    }
+
+    char prefix[64];
+    snprintf(prefix, sizeof(prefix), "sales_%s-", year_month);
+    size_t prefix_len = strlen(prefix);
+
+    struct dirent *entry;
+    double total_profit = 0.0;
+    int count = 0;
+
+    while ((entry = readdir(d)) != NULL) {
+        const char *name = entry->d_name;
+        if (strncmp(name, prefix, prefix_len) != 0) continue;
+        size_t namelen = strlen(name);
+        if (namelen < 5) continue;
+        if (strcmp(name + namelen - 4, ".csv") != 0) continue;
+
+        std::ifstream f(name);
+        if (!f) continue;
+        std::string line;
+        if (!std::getline(f, line)) { f.close(); continue; }
+
+        while (std::getline(f, line)) {
+            std::vector<std::string> parts;
+            std::string token;
+            std::istringstream partss(line);
+            while (std::getline(partss, token, ',')) parts.push_back(token);
+            if (parts.size() >= 12) {
+                try { double prof = std::stod(parts[11]); total_profit += prof; count++; continue; } catch(...) {}
+            }
+            if (parts.size() >= 11) {
+                try { double prof = std::stod(parts[10]); total_profit += prof; count++; continue; } catch(...) {}
+            }
+        }
+        f.close();
+    }
+
+    closedir(d);
+    if (tx_count_out) *tx_count_out = count;
+    return total_profit;
+}
+
 void ensure_csv_header(FILE *f) {
     long pos = ftell(f);
     if (pos == 0) {
@@ -352,9 +400,32 @@ void generate_daily_summary(const char *date_text) {
     int tx_count = 0;
     double total_profit = csv_sum_profit_for_date(date_text, &tx_count);
 
+    // Derive year-month
+    char year_month[8+1];
+    if (strlen(date_text) >= 7) {
+        std::strncpy(year_month, date_text, 7);
+        year_month[7] = '\0';
+    } else {
+        year_month[0] = '\0';
+    }
+
+    int month_tx_count = 0;
+    double month_profit = 0.0;
+    if (year_month[0]) {
+        month_profit = csv_sum_profit_for_month(year_month, &month_tx_count);
+    }
+
+    double cashier_bonus = month_profit * 0.05;
+    double net_profit = month_profit - cashier_bonus;
+
     std::cout << "\n=== End-of-day report for " << date_text << " ===\n";
     std::cout << "Total Transactions: " << tx_count << "\n";
     std::cout << "Total Profit (LOC): " << total_profit << "\n";
-    std::cout << "(Transactions are read from sales_" << date_text << ".csv)\n\n";
+    if (year_month[0]) {
+        std::cout << "Month-to-date Transactions (" << year_month << "): " << month_tx_count << "\n";
+        std::cout << "Month-to-date Profit (LOC): " << month_profit << "\n";
+        std::cout << "Cashier monthly bonus (5% of month profit): " << cashier_bonus << "\n";
+        std::cout << "Month net profit after 5% bonus: " << net_profit << "\n";
+    }
     std::cout.flush();
 }

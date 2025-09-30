@@ -1,9 +1,0 @@
-
-========= CURRENCY EXCHANGE RECEIPT =========
-Transaction ID: 3
-Date: 2025-09-29 16:37:39
-From: 1000.000000 LOC
-To: 24.125452 USD
-Rate: 1 LOC = 0.024125 USD
-==========================================
-
