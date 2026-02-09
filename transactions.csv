@@ -1,0 +1,2 @@
+id,date,time,from,to,amount_from,amount_to,rate_from_loc,rate_to_loc,partial,remainder_loc,profit_loc
+1,2026-02-09,12:30:36,LOC,USD,10,0.241255,1,41.45,0,0,0.0217129

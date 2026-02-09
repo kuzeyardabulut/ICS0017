@@ -1,0 +1,6 @@
+Receipt 1 (tx=1) 2026-02-09 12:30:36
+From: 10.000000 LOC
+To:   0.241255 USD
+Rate (BUY->LOC):  1.000000
+Rate (SELL->LOC): 41.450000
+
