@@ -1,3 +1,0 @@
-/home/pwn/Documents/TalTech/ICS0017/build/CMakeFiles/exchange_store_cp1.dir
-/home/pwn/Documents/TalTech/ICS0017/build/CMakeFiles/edit_cache.dir
-/home/pwn/Documents/TalTech/ICS0017/build/CMakeFiles/rebuild_cache.dir
