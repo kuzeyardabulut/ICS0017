@@ -1,0 +1,3 @@
+/Users/ayaz_zeynalov/ICS0017 project/ICS0017/build/CMakeFiles/exchange_store_cp1.dir
+/Users/ayaz_zeynalov/ICS0017 project/ICS0017/build/CMakeFiles/edit_cache.dir
+/Users/ayaz_zeynalov/ICS0017 project/ICS0017/build/CMakeFiles/rebuild_cache.dir

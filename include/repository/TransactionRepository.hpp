@@ -14,6 +14,7 @@ public:
 
     bool loadFromFile(const std::string &filename, std::string &errorMessage);
     bool saveToFile(const std::string &filename, std::string &errorMessage) const;
+    bool removeById(int id);
 
 private:
     int nextId_{1};

@@ -11,6 +11,7 @@ public:
     const std::vector<Receipt> &getAll() const;
 
     bool appendToFile(const std::string &filename, const Receipt &receipt, std::string &errorMessage) const;
+    bool removeById(int id);
 
 private:
     int nextId_{1};

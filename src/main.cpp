@@ -4,6 +4,7 @@
 #include "repository/TransactionRepository.hpp"
 #include "repository/ReceiptRepository.hpp"
 #include "data/Currency.hpp"
+#include "AppConfig.hpp"
 
 static void seedCurrencies(CurrencyRepository &repo) {
     repo.add(Currency(0, "LOC", {200, 100, 50, 20, 10, 5, 2, 1}, 50000.0, 10000.0, 1.0, 1.0));
@@ -23,13 +24,13 @@ int main() {
     ExchangeService service(currencyRepo, transactionRepo, receiptRepo);
 
     std::string loadError;
-    service.loadTransactions("transactions.csv", loadError);
+    service.loadTransactions(AppConfig::transactionsFile, loadError);
 
     ConsoleUI ui(service);
     ui.run();
 
     std::string saveError;
-    service.saveTransactions("transactions.csv", saveError);
+    service.saveTransactions(AppConfig::transactionsFile, saveError);
 
     return 0;
 }

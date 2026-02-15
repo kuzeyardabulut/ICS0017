@@ -5,6 +5,7 @@
 #include "repository/ReceiptRepository.hpp"
 #include "data/Currency.hpp"
 #include "logic/ExchangeService.hpp"
+#include "AppConfig.hpp"
 
 static void seedCurrencies(CurrencyRepository &repo) {
     repo.add(Currency(0, "LOC", {200, 100, 50, 20, 10, 5, 2, 1}, 50000.0, 10000.0, 1.0, 1.0));
@@ -25,7 +26,7 @@ int main(int argc, char **argv) {
     ExchangeService service(currencyRepo, transactionRepo, receiptRepo);
 
     std::string loadError;
-    service.loadTransactions("transactions.csv", loadError);
+    service.loadTransactions(AppConfig::transactionsFile, loadError);
 
     QtUI ui(service);
     ui.resize(720, 520);
@@ -34,7 +35,7 @@ int main(int argc, char **argv) {
     int result = app.exec();
 
     std::string saveError;
-    service.saveTransactions("transactions.csv", saveError);
+    service.saveTransactions(AppConfig::transactionsFile, saveError);
 
     return result;
 }

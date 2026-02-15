@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <cerrno>
 
 TransactionRepository::TransactionRepository() = default;
 
@@ -78,9 +79,11 @@ bool TransactionRepository::loadFromFile(const std::string &filename, std::strin
 }
 
 bool TransactionRepository::saveToFile(const std::string &filename, std::string &errorMessage) const {
-    std::ofstream out(filename);
+    // Atomic save: write to temporary file and rename into place
+    std::string tmp = filename + ".tmp";
+    std::ofstream out(tmp, std::ios::trunc);
     if (!out) {
-        errorMessage = "Failed to open file for writing: " + filename;
+        errorMessage = "Failed to open temp file for writing: " + tmp;
         return false;
     }
 
@@ -91,5 +94,29 @@ bool TransactionRepository::saveToFile(const std::string &filename, std::string 
             << (t.partial ? 1 : 0) << ',' << t.remainderLoc << ',' << t.profitLoc << '\n';
     }
 
+    out.flush();
+    out.close();
+    if (!out) {
+        // writing/flush error
+        std::remove(tmp.c_str());
+        errorMessage = "Failed to write temp file: " + tmp;
+        return false;
+    }
+
+    if (std::rename(tmp.c_str(), filename.c_str()) != 0) {
+        int err = errno;
+        std::remove(tmp.c_str());
+        errorMessage = "Failed to rename temp file to target: " + filename + " (errno=" + std::to_string(err) + ")";
+        return false;
+    }
+
+    return true;
+}
+
+bool TransactionRepository::removeById(int id) {
+    auto it = std::find_if(transactions_.begin(), transactions_.end(),
+                           [id](const Transaction &t) { return t.id == id; });
+    if (it == transactions_.end()) return false;
+    transactions_.erase(it);
     return true;
 }

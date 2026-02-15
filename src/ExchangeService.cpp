@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <numeric>
 #include <sstream>
+#include "AppConfig.hpp"
 
 ExchangeService::ExchangeService(CurrencyRepository &currencyRepo,
                                  TransactionRepository &transactionRepo,
@@ -79,8 +80,24 @@ ExchangeResult ExchangeService::executeExchange(const ExchangeRequest &request) 
     transaction.remainderLoc = remainderLoc;
     transaction.profitLoc = profitLoc;
 
+    // Add transaction in-memory and persist atomically to transactions file
     transaction.id = transactionRepo_.add(transaction);
+    std::string txErr;
+    if (!transactionRepo_.saveToFile(AppConfig::transactionsFile, txErr)) {
+        // rollback in-memory transaction and reserve updates
+        transactionRepo_.removeById(transaction.id);
+        // revert balances
+        from->balance -= request.amountFrom;
+        to->balance += amountTo;
+        if (request.partial) {
+            Currency *locCurrency = currencyRepo_.findByCode("LOC");
+            if (locCurrency) locCurrency->balance += remainderLoc;
+        }
+        result.message = "Failed to persist transaction: " + txErr;
+        return result;
+    }
 
+    // Persist receipt: first add to memory then append to receipts file. If append fails, rollback transaction.
     Receipt receipt;
     receipt.transactionId = transaction.id;
     receipt.date = transaction.date;
@@ -96,10 +113,24 @@ ExchangeResult ExchangeService::executeExchange(const ExchangeRequest &request) 
         text << "Remainder in LOC: " << transaction.remainderLoc << "\n";
     }
     receipt.text = text.str();
-    receipt.id = receiptRepo_.add(receipt);
 
+    int receiptId = receiptRepo_.add(receipt);
     std::string receiptError;
-    receiptRepo_.appendToFile("receipts.txt", receipt, receiptError);
+    if (!receiptRepo_.appendToFile(AppConfig::receiptsFile, receipt, receiptError)) {
+        // rollback: remove transaction and persist removal, remove receipt from memory, revert balances
+        transactionRepo_.removeById(transaction.id);
+        std::string saveErr;
+        transactionRepo_.saveToFile(AppConfig::transactionsFile, saveErr);
+        receiptRepo_.removeById(receiptId);
+        from->balance -= request.amountFrom;
+        to->balance += amountTo;
+        if (request.partial) {
+            Currency *locCurrency = currencyRepo_.findByCode("LOC");
+            if (locCurrency) locCurrency->balance += remainderLoc;
+        }
+        result.message = "Failed to persist receipt: " + receiptError;
+        return result;
+    }
 
     result.success = true;
     result.message = "Exchange completed successfully.";

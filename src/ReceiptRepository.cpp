@@ -29,3 +29,11 @@ bool ReceiptRepository::appendToFile(const std::string &filename, const Receipt 
     out << receipt.toString() << "\n";
     return true;
 }
+
+bool ReceiptRepository::removeById(int id) {
+    auto it = std::find_if(receipts_.begin(), receipts_.end(),
+                           [id](const Receipt &r) { return r.id == id; });
+    if (it == receipts_.end()) return false;
+    receipts_.erase(it);
+    return true;
+}
