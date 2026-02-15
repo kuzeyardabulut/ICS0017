@@ -5,7 +5,6 @@ ROOT=$(cd "$WD/.." && pwd)
 
 echo "Running tests from $ROOT"
 
-# Ensure binary exists (prefer build/ location)
 BIN_BUILD="$ROOT/build/exchange_store_cp1"
 BIN_ROOT="$ROOT/exchange_store_cp1"
 if [ -x "$BIN_BUILD" ]; then
