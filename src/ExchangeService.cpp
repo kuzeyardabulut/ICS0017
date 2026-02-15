@@ -80,13 +80,10 @@ ExchangeResult ExchangeService::executeExchange(const ExchangeRequest &request) 
     transaction.remainderLoc = remainderLoc;
     transaction.profitLoc = profitLoc;
 
-    // Add transaction in-memory and persist atomically to transactions file
     transaction.id = transactionRepo_.add(transaction);
     std::string txErr;
     if (!transactionRepo_.saveToFile(AppConfig::transactionsFile, txErr)) {
-        // rollback in-memory transaction and reserve updates
         transactionRepo_.removeById(transaction.id);
-        // revert balances
         from->balance -= request.amountFrom;
         to->balance += amountTo;
         if (request.partial) {
@@ -97,7 +94,6 @@ ExchangeResult ExchangeService::executeExchange(const ExchangeRequest &request) 
         return result;
     }
 
-    // Persist receipt: first add to memory then append to receipts file. If append fails, rollback transaction.
     Receipt receipt;
     receipt.transactionId = transaction.id;
     receipt.date = transaction.date;
@@ -117,7 +113,6 @@ ExchangeResult ExchangeService::executeExchange(const ExchangeRequest &request) 
     int receiptId = receiptRepo_.add(receipt);
     std::string receiptError;
     if (!receiptRepo_.appendToFile(AppConfig::receiptsFile, receipt, receiptError)) {
-        // rollback: remove transaction and persist removal, remove receipt from memory, revert balances
         transactionRepo_.removeById(transaction.id);
         std::string saveErr;
         transactionRepo_.saveToFile(AppConfig::transactionsFile, saveErr);

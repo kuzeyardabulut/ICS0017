@@ -79,7 +79,6 @@ bool TransactionRepository::loadFromFile(const std::string &filename, std::strin
 }
 
 bool TransactionRepository::saveToFile(const std::string &filename, std::string &errorMessage) const {
-    // Atomic save: write to temporary file and rename into place
     std::string tmp = filename + ".tmp";
     std::ofstream out(tmp, std::ios::trunc);
     if (!out) {
@@ -97,7 +96,6 @@ bool TransactionRepository::saveToFile(const std::string &filename, std::string 
     out.flush();
     out.close();
     if (!out) {
-        // writing/flush error
         std::remove(tmp.c_str());
         errorMessage = "Failed to write temp file: " + tmp;
         return false;
