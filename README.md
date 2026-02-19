@@ -179,6 +179,9 @@ Implementation details:
 ### Build Console Version
 
 ```bash
+# create data directory for persistence
+mkdir -p data
+
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..

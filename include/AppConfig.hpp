@@ -3,6 +3,8 @@
 #include <string>
 
 namespace AppConfig {
-    inline std::string transactionsFile = "transactions.csv";
-    inline std::string receiptsFile = "receipts.txt";
+    // files are stored under the data/ subdirectory to keep repository root clean
+    // caller must ensure the directory exists (e.g. create before first run)
+    inline std::string transactionsFile = "data/transactions.csv";
+    inline std::string receiptsFile = "data/receipts.txt";
 }
