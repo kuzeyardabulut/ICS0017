@@ -1,0 +1,6 @@
+code,balance,rate,critical_minimum
+LOC,48769.2,1,10000
+USD,10029.8,41.36,2000
+EUR,8000,48.38,1500
+GBP,3000,55.91,500
+JPY,1e+06,0.27,200000

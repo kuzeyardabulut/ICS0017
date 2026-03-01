@@ -7,4 +7,5 @@ namespace AppConfig {
     // caller must ensure the directory exists (e.g. create before first run)
     inline std::string transactionsFile = "data/transactions.csv";
     inline std::string receiptsFile = "data/receipts.txt";
+    inline std::string currenciesFile = "data/currencies.csv";
 }

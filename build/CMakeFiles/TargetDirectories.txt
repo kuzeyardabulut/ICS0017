@@ -1,3 +1,6 @@
 /Users/ayaz_zeynalov/ICS0017 project/ICS0017/build/CMakeFiles/exchange_store_cp1.dir
+/Users/ayaz_zeynalov/ICS0017 project/ICS0017/build/CMakeFiles/exchange_store_qt.dir
 /Users/ayaz_zeynalov/ICS0017 project/ICS0017/build/CMakeFiles/edit_cache.dir
 /Users/ayaz_zeynalov/ICS0017 project/ICS0017/build/CMakeFiles/rebuild_cache.dir
+/Users/ayaz_zeynalov/ICS0017 project/ICS0017/build/CMakeFiles/exchange_store_qt_autogen_timestamp_deps.dir
+/Users/ayaz_zeynalov/ICS0017 project/ICS0017/build/CMakeFiles/exchange_store_qt_autogen.dir

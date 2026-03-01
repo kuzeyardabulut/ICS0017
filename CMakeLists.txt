@@ -26,17 +26,18 @@ if (ENABLE_QT)
 	endif ()
 
 	if (QT_LIB)
-		add_executable(exchange_store_qt
-			"${CMAKE_CURRENT_SOURCE_DIR}/src/qt_main.cpp"
-			"${CMAKE_CURRENT_SOURCE_DIR}/src/QtUI.cpp"
-			"${CMAKE_CURRENT_SOURCE_DIR}/src/ExchangeService.cpp"
-			"${CMAKE_CURRENT_SOURCE_DIR}/src/Transaction.cpp"
-			"${CMAKE_CURRENT_SOURCE_DIR}/src/Currency.cpp"
-			"${CMAKE_CURRENT_SOURCE_DIR}/src/Receipt.cpp"
-			"${CMAKE_CURRENT_SOURCE_DIR}/src/CurrencyRepository.cpp"
-			"${CMAKE_CURRENT_SOURCE_DIR}/src/TransactionRepository.cpp"
-			"${CMAKE_CURRENT_SOURCE_DIR}/src/ReceiptRepository.cpp"
-		)
+ 		add_executable(exchange_store_qt
+ 			"${CMAKE_CURRENT_SOURCE_DIR}/src/qt_main.cpp"
+ 			"${CMAKE_CURRENT_SOURCE_DIR}/src/QtUI.cpp"
+ 			"${CMAKE_CURRENT_SOURCE_DIR}/include/ui/QtUI.hpp"
+ 			"${CMAKE_CURRENT_SOURCE_DIR}/src/ExchangeService.cpp"
+ 			"${CMAKE_CURRENT_SOURCE_DIR}/src/Transaction.cpp"
+ 			"${CMAKE_CURRENT_SOURCE_DIR}/src/Currency.cpp"
+ 			"${CMAKE_CURRENT_SOURCE_DIR}/src/Receipt.cpp"
+ 			"${CMAKE_CURRENT_SOURCE_DIR}/src/CurrencyRepository.cpp"
+ 			"${CMAKE_CURRENT_SOURCE_DIR}/src/TransactionRepository.cpp"
+ 			"${CMAKE_CURRENT_SOURCE_DIR}/src/ReceiptRepository.cpp"
+ 		)
 		target_include_directories(exchange_store_qt PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 		target_link_libraries(exchange_store_qt PRIVATE ${QT_LIB})
 	endif ()

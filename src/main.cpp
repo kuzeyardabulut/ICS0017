@@ -19,7 +19,10 @@
      TransactionRepository transactionRepo;
      ReceiptRepository receiptRepo;
 
-     seedCurrencies(currencyRepo);
+    std::string curLoadErr;
+    if (!currencyRepo.loadFromFile(AppConfig::currenciesFile, curLoadErr)) {
+        seedCurrencies(currencyRepo);
+    }
 
      ExchangeService service(currencyRepo, transactionRepo, receiptRepo);
 
@@ -32,5 +35,7 @@
      std::string saveError;
      service.saveTransactions(AppConfig::transactionsFile, saveError);
 
-     return 0;
+    std::string curSaveErr;
+    currencyRepo.saveToFile(AppConfig::currenciesFile, curSaveErr);
+    return 0;
  }

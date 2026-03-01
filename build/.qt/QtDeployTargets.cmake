@@ -1,0 +1,4 @@
+set(__QT_DEPLOY_TARGET_exchange_store_cp1_FILE /Users/ayaz_zeynalov/ICS0017 project/ICS0017/build/exchange_store_cp1)
+set(__QT_DEPLOY_TARGET_exchange_store_cp1_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_exchange_store_qt_FILE /Users/ayaz_zeynalov/ICS0017 project/ICS0017/build/exchange_store_qt)
+set(__QT_DEPLOY_TARGET_exchange_store_qt_TYPE EXECUTABLE)

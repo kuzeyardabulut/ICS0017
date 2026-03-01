@@ -22,7 +22,10 @@ int main(int argc, char **argv) {
     TransactionRepository transactionRepo;
     ReceiptRepository receiptRepo;
 
-    seedCurrencies(currencyRepo);
+    std::string curLoadErr;
+    if (!currencyRepo.loadFromFile(AppConfig::currenciesFile, curLoadErr)) {
+        seedCurrencies(currencyRepo);
+    }
     ExchangeService service(currencyRepo, transactionRepo, receiptRepo);
 
     std::string loadError;
@@ -33,6 +36,9 @@ int main(int argc, char **argv) {
     ui.show();
 
     int result = app.exec();
+
+    std::string curSaveErr;
+    currencyRepo.saveToFile(AppConfig::currenciesFile, curSaveErr);
 
     std::string saveError;
     service.saveTransactions(AppConfig::transactionsFile, saveError);

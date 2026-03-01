@@ -1,237 +1,267 @@
-# Currency Exchange Store  
-**ICS0025 Course Project**
-
----
-
-## 1. Project Overview
-
-This project implements a layered **currency exchange office system** developed according to the ICS0025 course requirements.
-
-The system:
-
-- Manages multiple currencies  
-- Executes exchange transactions  
-- Generates receipts  
-- Stores transaction history  
-- Persists data to files  
-- Provides both Console UI and optional Qt GUI  
-
-The application is delivered as a **fully integrated final version** while conceptually satisfying all intermediate course stages.
-
----
-
-## 2. System Architecture
-
-The project strictly follows the required layered architecture:
-
-UI → Logic → Repository → Data → Data File
-
-### UI Layer
-- `ConsoleUI` (console interface)  
-- `QtUI` (Qt widget-based GUI, optional)  
-- Handles only user interaction  
-- Does NOT contain business logic  
-- Does NOT perform file I/O  
-
-### Logic Layer
-- `ExchangeService`
-- Implements:
-  - Validation  
-  - Business rules  
-  - Calculations  
-  - Coordination between repositories  
-- Does NOT perform UI operations  
-- Does NOT directly access files  
-
-### Repository Layer
-- `CurrencyRepository`  
-- `TransactionRepository`  
-- `ReceiptRepository`  
-- Stores entity objects (not strings)  
-- Provides CRUD-style methods  
-- Handles file persistence  
-
-### Data Layer
-- `Currency`  
-- `Transaction`  
-- `Receipt`  
-- Plain data classes with unique IDs  
-- No business logic  
-
-### Data Files
-- `transactions.csv`  
-- `receipts.txt`  
-- Saved using atomic write strategy (temporary file + rename)
-
-All communication flows through `ExchangeService`.
-
----
-
-## 3. Main System Algorithm
-
-**Main operation: Execute Currency Exchange**
-
-1. User selects exchange operation in UI.  
-2. UI collects source currency, target currency, and amount.  
-3. UI sends request to `ExchangeService`.  
-4. Logic layer validates:
-   - Amount > 0  
-   - Currencies exist  
-   - Source ≠ Target  
-   - Sufficient reserve available  
-5. Logic layer calculates exchange result.  
-6. A `Transaction` object is created.  
-7. Repository updates currency balances.  
-8. Transaction is stored.  
-9. A `Receipt` is generated and stored.  
-10. Result is returned to UI and displayed.  
-
-This operation mutates system state and persists data.
-
----
-
-## 4. Compliance with Course Requirements  
-*(Integrated Final Version)*
-
-The project is implemented directly as a final integrated system rather than as separate release folders.
-
-However, it satisfies all conceptual requirements defined in Release 1–3 and the Final stage.
-
-### Core Structured Architecture (Release 1 concepts)
-
-- Layered architecture implemented  
-- Console UI available  
-- End-to-end exchange scenario  
-- Multiple entity classes  
-- In-memory repositories  
-- Buildable CMake project  
-
-### Designed for Change (Release 2 concepts)
-
-- Modular logic layer (`ExchangeService`)  
-- Use of STL algorithms and lambda expressions  
-- Clear separation of concerns  
-- Easily extendable structure  
-
-### Robust Behavior (Release 3 concepts)
-
-- Input validation  
-- Handling invalid IDs  
-- Handling insufficient reserves  
-- Border value checks  
-- Safe state updates  
-- Clear error messages  
-
-### Integrated Product (Final Stage)
-
-- Qt-based UI  
-- Repository `saveToFile()` and `loadFromFile()`  
-- Atomic file persistence (.tmp → rename)  
-- UI never performs file operations  
-- Persistence test scenario passes  
-
----
-
-## 5. Error Handling Strategy
-
-- UI validates basic input format.  
-- Logic layer validates business constraints.  
-- Repository methods return status and error messages.  
-- Atomic file writes prevent data corruption.  
-- Failed operations do not corrupt system state.  
-
-All errors are reported clearly to the user.
-
----
-
-## 6. Persistence Implementation
-
-Persistence is handled inside the repository layer.
-
-Implementation details:
-
-- Data is written to a temporary file  
-- File is flushed and closed  
-- Temporary file is atomically renamed  
-- On program start, repositories load stored data  
-
-### Persistence Test Scenario
-
-1. Run program  
-2. Execute exchange  
-3. Save data  
-4. Close program  
-5. Run program again  
-6. Stored transaction remains available  
-
----
-
-## 7. Build & Run Instructions
-
-### Requirements
-
-- C++17 compatible compiler  
-- CMake 3.10+  
-- Optional Qt 5/6  
-
----
-
-### Build Console Version
-
-```bash
-# create data directory for persistence
-mkdir -p data
-
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release ..
-cmake --build .
-./exchange_store_cp1
-
-Build Qt Version
-
-cmake -DENABLE_QT=ON ..
-cmake --build .
-./exchange_store_qt
-
-## 8. Design Decisions
-
-- `std::vector` is used in repositories for predictable iteration and simplicity.  
-- STL algorithms such as `std::find_if` and `std::accumulate` are used for searching and calculations.  
-- Clear separation of layers improves maintainability and readability.  
-- `AppConfig` centralizes file names and prevents hardcoded paths.  
-- Atomic file rename strategy ensures safe persistence and prevents data corruption.  
-
----
-
-## 9. Architecture Compliance
-
-The project complies with all ICS0025 architectural constraints:
-
-- UI layer does not access repositories directly.  
-- Business logic is isolated in `ExchangeService`.  
-- Repositories store entity objects (not strings).  
-- Data classes contain no business logic.  
-- Only the `src/` directory is compiled.  
-- CMake sets `CMAKE_CXX_STANDARD 17`.  
-
-All communication strictly follows:
-
-UI → Logic → Repository → Data → File  
-
----
-
-## 10. Conclusion
-
-This project delivers a complete, buildable, and robust currency exchange application that satisfies all ICS0025 requirements.
-
-The implementation demonstrates:
-
-- Clean layered architecture  
-- Proper separation of concerns  
-- Extensibility  
-- Robust error handling  
-- Safe file persistence  
-- Optional Qt GUI integration  
-
-The system is ready for evaluation.
+===========================================================
+CURRENCY EXCHANGE STORE — FULL PROJECT REPORT (ICS0025)
+FINAL RELEASE: Qt GUI + CONSOLE + FILE PERSISTENCE
+===========================================================
+
+1) PROJECT OVERVIEW
+-------------------
+Currency Exchange Store is a layered C++ application that simulates a small currency exchange office.
+It supports two user interfaces:
+  - Qt GUI (final release)
+  - Console UI (menu-driven)
+
+The system allows users to execute currency exchanges, record transactions, and generate simple
+daily/monthly reports. The final release includes file persistence so that transactions and currency
+state remain available after restarting the application.
+
+Key goals of the final release:
+  - Qt GUI executable builds and runs successfully
+  - Data persistence works (transactions and currency state survive restart)
+  - Clear, repeatable build/run instructions for evaluation
+
+
+2) FEATURES IMPLEMENTED
+-----------------------
+A) Exchange operations
+  - Execute exchange between currency codes (e.g., USD <-> LOC, EUR <-> LOC, etc.)
+  - Optional partial exchange (if enabled via UI checkbox)
+  - Reserve validation: an exchange can fail when the target currency does not have enough reserve
+    ("Insufficient reserve in target currency").
+
+B) Transaction management
+  - Transactions are created and stored with:
+      - unique transaction id
+      - date and time
+      - from currency and to currency
+      - amount_from and amount_to
+      - related rates
+      - partial flag and partial remainder (if used)
+  - List Transactions (Qt button / Console menu)
+
+C) Reports
+  - Daily Report (input format: YYYY-MM-DD)
+  - Monthly Report (input format: YYYY-MM)
+
+D) Persistence (Final Release)
+  - Currency state and transaction history are persisted to disk under the data/ directory.
+  - Transactions are saved atomically using a temporary file (tmp -> flush/close -> rename).
+
+
+3) ARCHITECTURE (LAYERED DESIGN)
+--------------------------------
+The project follows a layered architecture:
+
+  UI (Qt / Console)
+      |
+      v
+  Logic (ExchangeService)
+      |
+      v
+  Repositories (CurrencyRepository, TransactionRepository, ReceiptRepository)
+      |
+      v
+  Data files (data/currencies.csv, data/transactions.csv, data/receipts.txt)
+
+A) UI layer
+  - Qt GUI:
+      - User enters:
+          From code, To code, Amount
+          (Optional) Partial exchange + partial amount
+          Report date (YYYY-MM-DD) / report month (YYYY-MM)
+      - Buttons:
+          Execute Exchange
+          List Transactions
+          Daily Report
+          Monthly Report
+      - UI displays results and error messages in the Output panel.
+  - Console UI:
+      - Menu-based interface to run the same operations.
+      - Used for reserve adjustment in troubleshooting cases.
+
+B) Logic layer (ExchangeService)
+  - Validates requests:
+      - currency codes exist
+      - amount is valid
+      - rate is valid
+      - target currency has enough reserve
+  - Performs computations:
+      - converts from -> LOC using buyToLOC
+      - converts LOC -> target using target sellToLOC (division)
+      - produces amountTo, updates reserves, and creates transaction records
+  - Triggers persistence (load/save) through repository interfaces.
+
+C) Repository layer
+  - CurrencyRepository
+      - stores currencies in memory
+      - loads/saves currency state to data/currencies.csv
+      - ensures both buyToLOC and sellToLOC are correctly set when loading 4-column CSV format
+  - TransactionRepository
+      - stores transactions in memory
+      - loads/saves transactions to data/transactions.csv
+      - uses atomic persistence on save (tmp file -> rename)
+  - ReceiptRepository (if used)
+      - stores receipts and loads/saves to data/receipts.txt
+
+D) Data model
+  - Currency
+      - code (e.g., LOC, USD, EUR)
+      - balance/reserve
+      - buyToLOC and sellToLOC rates (used in exchange computation)
+      - critical minimum (if used)
+      - startBalance (used for initialization / reporting)
+  - Transaction
+      - id, timestamp, from/to, amounts, rates, partial flag, etc.
+  - Receipt
+      - receipt records if used by the project
+
+
+4) DATA PERSISTENCE (FINAL RELEASE)
+-----------------------------------
+Persistent data files:
+  - data/currencies.csv     (currency reserves and rates)
+  - data/transactions.csv   (transaction history)
+  - data/receipts.txt       (receipts, if used)
+
+4.1) When load/save happens
+  - On startup:
+      - currencies are loaded from data/currencies.csv
+      - transactions are loaded from data/transactions.csv
+      - if a file does not exist, the app seeds default currencies (initial state)
+  - On exit:
+      - currencies are saved back to data/currencies.csv
+      - transactions are saved back to data/transactions.csv
+
+4.2) Atomic persistence (transactions)
+Transactions are saved atomically using a temporary file approach:
+  - write to: data/transactions.csv.tmp
+  - flush + close
+  - rename .tmp -> data/transactions.csv
+This prevents corrupted files if the program exits mid-write.
+
+4.3) Currency CSV format (backward compatible)
+The repo supports a 4-column format:
+  code,balance,rate,critical_minimum
+
+When loading this format:
+  - buyToLOC  = rate
+  - sellToLOC = rate
+  - startBalance = balance (so runtime state matches loaded state)
+
+Example (illustrative):
+  USD,11010.0,41.36,2000
+  LOC,49586.4,1.0,10000
+
+
+5) BUILD + RUN (macOS)
+----------------------
+
+(0) IMPORTANT: Always run commands from the project root (where CMakeLists.txt is).
+
+5.1) Prerequisites
+Install Qt via Homebrew:
+  brew install qt
+
+5.2) Build Qt GUI (Final Release)
+QT_PREFIX="$(brew --prefix qt)"
+cmake -S . -B build -DENABLE_QT=ON -DCMAKE_PREFIX_PATH="$QT_PREFIX"
+cmake --build build
+
+Run Qt GUI:
+  ./build/exchange_store_qt
+
+5.3) Build Console Version
+cmake -S . -B build
+cmake --build build
+
+Run Console:
+  ./build/exchange_store_cp1
+
+5.4) Check binaries exist
+ls -la build | grep exchange
+
+Expected binaries:
+  build/exchange_store_qt
+  build/exchange_store_cp1
+
+
+6) HOW TO USE (Qt GUI)
+----------------------
+Start the app:
+  ./build/exchange_store_qt
+
+6.1) Demo exchange #1 (USD -> LOC)
+  From code: USD
+  To code:   LOC
+  Amount:    10
+  Click: Execute Exchange
+Expected: "Exchange completed successfully" + Transaction ID.
+
+6.2) Demo exchange #2 (LOC -> USD)
+  From code: LOC
+  To code:   USD
+  Amount:    10
+  Click: Execute Exchange
+Expected: "Exchange completed successfully" + Transaction ID.
+
+6.3) List transactions
+  Click: List Transactions
+Expected: previously created transactions appear in Output.
+
+6.4) Reports
+  - Daily Report:
+      - Enter date as YYYY-MM-DD
+      - Click Daily Report
+  - Monthly Report:
+      - Enter month as YYYY-MM
+      - Click Monthly Report
+
+
+7) PERSISTENCE VERIFICATION (GRADER CHECKLIST)
+----------------------------------------------
+1) Run Qt GUI and execute at least one exchange.
+2) Close the Qt app.
+3) Reopen Qt GUI:
+     ./build/exchange_store_qt
+4) Click: List Transactions
+   -> Previous transactions must still appear (data is persisted).
+
+Optional file inspection:
+  ls -la data
+  tail -n 5 data/transactions.csv
+  head -n 5 data/currencies.csv
+
+
+8) TROUBLESHOOTING
+------------------
+A) exchange_store_qt missing
+  - Qt was not found or Qt build was not enabled.
+  - Rebuild using:
+      QT_PREFIX="$(brew --prefix qt)"
+      cmake -S . -B build -DENABLE_QT=ON -DCMAKE_PREFIX_PATH="$QT_PREFIX"
+      cmake --build build
+
+B) "Insufficient reserve in target currency"
+  - Means the target currency does not have enough reserve for the payout.
+  - Options:
+      1) Reduce the amount
+      2) Adjust reserves using console version:
+           ./build/exchange_store_cp1
+         Then choose menu item "Adjust reserves" and increase the target currency.
+
+C) "Invalid exchange rate: target currency sellToLOC is zero or negative."
+  - Means loaded currency rate was missing/invalid.
+  - Reset demo state (see section 9) to regenerate consistent currency state.
+
+D) Data folder / file not found
+  - Ensure data directory exists:
+      mkdir -p data
+
+
+9) DEMO RESET (OPTIONAL — DELETES SAVED DATA)
+---------------------------------------------
+This removes saved state and re-seeds initial state on next run:
+  rm -f data/currencies.csv data/transactions.csv
+  mkdir -p data
+  ./build/exchange_store_qt
+
+END OF REPORT

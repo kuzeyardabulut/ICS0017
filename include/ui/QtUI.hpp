@@ -13,6 +13,7 @@ class QtUI : public QWidget {
 
 public:
     explicit QtUI(ExchangeService &service, QWidget *parent = nullptr);
+    ~QtUI() override = default;
 
 private slots:
     void onExecuteExchange();

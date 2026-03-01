@@ -129,6 +129,69 @@ exchange_store_cp1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/build
 .PHONY : exchange_store_cp1/fast
 
+#=============================================================================
+# Target rules for targets named exchange_store_qt
+
+# Build rule for target.
+exchange_store_qt: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 exchange_store_qt
+.PHONY : exchange_store_qt
+
+# fast build rule for target.
+exchange_store_qt/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/build
+.PHONY : exchange_store_qt/fast
+
+#=============================================================================
+# Target rules for targets named exchange_store_qt_autogen_timestamp_deps
+
+# Build rule for target.
+exchange_store_qt_autogen_timestamp_deps: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 exchange_store_qt_autogen_timestamp_deps
+.PHONY : exchange_store_qt_autogen_timestamp_deps
+
+# fast build rule for target.
+exchange_store_qt_autogen_timestamp_deps/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt_autogen_timestamp_deps.dir/build.make CMakeFiles/exchange_store_qt_autogen_timestamp_deps.dir/build
+.PHONY : exchange_store_qt_autogen_timestamp_deps/fast
+
+#=============================================================================
+# Target rules for targets named exchange_store_qt_autogen
+
+# Build rule for target.
+exchange_store_qt_autogen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 exchange_store_qt_autogen
+.PHONY : exchange_store_qt_autogen
+
+# fast build rule for target.
+exchange_store_qt_autogen/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt_autogen.dir/build.make CMakeFiles/exchange_store_qt_autogen.dir/build
+.PHONY : exchange_store_qt_autogen/fast
+
+exchange_store_qt_autogen/mocs_compilation.o: exchange_store_qt_autogen/mocs_compilation.cpp.o
+.PHONY : exchange_store_qt_autogen/mocs_compilation.o
+
+# target to build an object file
+exchange_store_qt_autogen/mocs_compilation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/exchange_store_qt_autogen/mocs_compilation.cpp.o
+.PHONY : exchange_store_qt_autogen/mocs_compilation.cpp.o
+
+exchange_store_qt_autogen/mocs_compilation.i: exchange_store_qt_autogen/mocs_compilation.cpp.i
+.PHONY : exchange_store_qt_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+exchange_store_qt_autogen/mocs_compilation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/exchange_store_qt_autogen/mocs_compilation.cpp.i
+.PHONY : exchange_store_qt_autogen/mocs_compilation.cpp.i
+
+exchange_store_qt_autogen/mocs_compilation.s: exchange_store_qt_autogen/mocs_compilation.cpp.s
+.PHONY : exchange_store_qt_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+exchange_store_qt_autogen/mocs_compilation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/exchange_store_qt_autogen/mocs_compilation.cpp.s
+.PHONY : exchange_store_qt_autogen/mocs_compilation.cpp.s
+
 src/ConsoleUI.o: src/ConsoleUI.cpp.o
 .PHONY : src/ConsoleUI.o
 
@@ -159,6 +222,7 @@ src/Currency.o: src/Currency.cpp.o
 # target to build an object file
 src/Currency.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/Currency.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/Currency.cpp.o
 .PHONY : src/Currency.cpp.o
 
 src/Currency.i: src/Currency.cpp.i
@@ -167,6 +231,7 @@ src/Currency.i: src/Currency.cpp.i
 # target to preprocess a source file
 src/Currency.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/Currency.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/Currency.cpp.i
 .PHONY : src/Currency.cpp.i
 
 src/Currency.s: src/Currency.cpp.s
@@ -175,6 +240,7 @@ src/Currency.s: src/Currency.cpp.s
 # target to generate assembly for a file
 src/Currency.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/Currency.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/Currency.cpp.s
 .PHONY : src/Currency.cpp.s
 
 src/CurrencyRepository.o: src/CurrencyRepository.cpp.o
@@ -183,6 +249,7 @@ src/CurrencyRepository.o: src/CurrencyRepository.cpp.o
 # target to build an object file
 src/CurrencyRepository.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/CurrencyRepository.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/CurrencyRepository.cpp.o
 .PHONY : src/CurrencyRepository.cpp.o
 
 src/CurrencyRepository.i: src/CurrencyRepository.cpp.i
@@ -191,6 +258,7 @@ src/CurrencyRepository.i: src/CurrencyRepository.cpp.i
 # target to preprocess a source file
 src/CurrencyRepository.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/CurrencyRepository.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/CurrencyRepository.cpp.i
 .PHONY : src/CurrencyRepository.cpp.i
 
 src/CurrencyRepository.s: src/CurrencyRepository.cpp.s
@@ -199,6 +267,7 @@ src/CurrencyRepository.s: src/CurrencyRepository.cpp.s
 # target to generate assembly for a file
 src/CurrencyRepository.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/CurrencyRepository.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/CurrencyRepository.cpp.s
 .PHONY : src/CurrencyRepository.cpp.s
 
 src/ExchangeService.o: src/ExchangeService.cpp.o
@@ -207,6 +276,7 @@ src/ExchangeService.o: src/ExchangeService.cpp.o
 # target to build an object file
 src/ExchangeService.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/ExchangeService.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/ExchangeService.cpp.o
 .PHONY : src/ExchangeService.cpp.o
 
 src/ExchangeService.i: src/ExchangeService.cpp.i
@@ -215,6 +285,7 @@ src/ExchangeService.i: src/ExchangeService.cpp.i
 # target to preprocess a source file
 src/ExchangeService.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/ExchangeService.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/ExchangeService.cpp.i
 .PHONY : src/ExchangeService.cpp.i
 
 src/ExchangeService.s: src/ExchangeService.cpp.s
@@ -223,6 +294,7 @@ src/ExchangeService.s: src/ExchangeService.cpp.s
 # target to generate assembly for a file
 src/ExchangeService.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/ExchangeService.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/ExchangeService.cpp.s
 .PHONY : src/ExchangeService.cpp.s
 
 src/ExchangeService_stub.o: src/ExchangeService_stub.cpp.o
@@ -249,12 +321,37 @@ src/ExchangeService_stub.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/ExchangeService_stub.cpp.s
 .PHONY : src/ExchangeService_stub.cpp.s
 
+src/QtUI.o: src/QtUI.cpp.o
+.PHONY : src/QtUI.o
+
+# target to build an object file
+src/QtUI.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/QtUI.cpp.o
+.PHONY : src/QtUI.cpp.o
+
+src/QtUI.i: src/QtUI.cpp.i
+.PHONY : src/QtUI.i
+
+# target to preprocess a source file
+src/QtUI.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/QtUI.cpp.i
+.PHONY : src/QtUI.cpp.i
+
+src/QtUI.s: src/QtUI.cpp.s
+.PHONY : src/QtUI.s
+
+# target to generate assembly for a file
+src/QtUI.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/QtUI.cpp.s
+.PHONY : src/QtUI.cpp.s
+
 src/Receipt.o: src/Receipt.cpp.o
 .PHONY : src/Receipt.o
 
 # target to build an object file
 src/Receipt.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/Receipt.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/Receipt.cpp.o
 .PHONY : src/Receipt.cpp.o
 
 src/Receipt.i: src/Receipt.cpp.i
@@ -263,6 +360,7 @@ src/Receipt.i: src/Receipt.cpp.i
 # target to preprocess a source file
 src/Receipt.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/Receipt.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/Receipt.cpp.i
 .PHONY : src/Receipt.cpp.i
 
 src/Receipt.s: src/Receipt.cpp.s
@@ -271,6 +369,7 @@ src/Receipt.s: src/Receipt.cpp.s
 # target to generate assembly for a file
 src/Receipt.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/Receipt.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/Receipt.cpp.s
 .PHONY : src/Receipt.cpp.s
 
 src/ReceiptRepository.o: src/ReceiptRepository.cpp.o
@@ -279,6 +378,7 @@ src/ReceiptRepository.o: src/ReceiptRepository.cpp.o
 # target to build an object file
 src/ReceiptRepository.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/ReceiptRepository.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/ReceiptRepository.cpp.o
 .PHONY : src/ReceiptRepository.cpp.o
 
 src/ReceiptRepository.i: src/ReceiptRepository.cpp.i
@@ -287,6 +387,7 @@ src/ReceiptRepository.i: src/ReceiptRepository.cpp.i
 # target to preprocess a source file
 src/ReceiptRepository.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/ReceiptRepository.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/ReceiptRepository.cpp.i
 .PHONY : src/ReceiptRepository.cpp.i
 
 src/ReceiptRepository.s: src/ReceiptRepository.cpp.s
@@ -295,6 +396,7 @@ src/ReceiptRepository.s: src/ReceiptRepository.cpp.s
 # target to generate assembly for a file
 src/ReceiptRepository.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/ReceiptRepository.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/ReceiptRepository.cpp.s
 .PHONY : src/ReceiptRepository.cpp.s
 
 src/Transaction.o: src/Transaction.cpp.o
@@ -303,6 +405,7 @@ src/Transaction.o: src/Transaction.cpp.o
 # target to build an object file
 src/Transaction.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/Transaction.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/Transaction.cpp.o
 .PHONY : src/Transaction.cpp.o
 
 src/Transaction.i: src/Transaction.cpp.i
@@ -311,6 +414,7 @@ src/Transaction.i: src/Transaction.cpp.i
 # target to preprocess a source file
 src/Transaction.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/Transaction.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/Transaction.cpp.i
 .PHONY : src/Transaction.cpp.i
 
 src/Transaction.s: src/Transaction.cpp.s
@@ -319,6 +423,7 @@ src/Transaction.s: src/Transaction.cpp.s
 # target to generate assembly for a file
 src/Transaction.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/Transaction.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/Transaction.cpp.s
 .PHONY : src/Transaction.cpp.s
 
 src/TransactionRepository.o: src/TransactionRepository.cpp.o
@@ -327,6 +432,7 @@ src/TransactionRepository.o: src/TransactionRepository.cpp.o
 # target to build an object file
 src/TransactionRepository.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/TransactionRepository.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/TransactionRepository.cpp.o
 .PHONY : src/TransactionRepository.cpp.o
 
 src/TransactionRepository.i: src/TransactionRepository.cpp.i
@@ -335,6 +441,7 @@ src/TransactionRepository.i: src/TransactionRepository.cpp.i
 # target to preprocess a source file
 src/TransactionRepository.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/TransactionRepository.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/TransactionRepository.cpp.i
 .PHONY : src/TransactionRepository.cpp.i
 
 src/TransactionRepository.s: src/TransactionRepository.cpp.s
@@ -343,6 +450,7 @@ src/TransactionRepository.s: src/TransactionRepository.cpp.s
 # target to generate assembly for a file
 src/TransactionRepository.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/TransactionRepository.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/TransactionRepository.cpp.s
 .PHONY : src/TransactionRepository.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -369,6 +477,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_cp1.dir/build.make CMakeFiles/exchange_store_cp1.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/qt_main.o: src/qt_main.cpp.o
+.PHONY : src/qt_main.o
+
+# target to build an object file
+src/qt_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/qt_main.cpp.o
+.PHONY : src/qt_main.cpp.o
+
+src/qt_main.i: src/qt_main.cpp.i
+.PHONY : src/qt_main.i
+
+# target to preprocess a source file
+src/qt_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/qt_main.cpp.i
+.PHONY : src/qt_main.cpp.i
+
+src/qt_main.s: src/qt_main.cpp.s
+.PHONY : src/qt_main.s
+
+# target to generate assembly for a file
+src/qt_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_store_qt.dir/build.make CMakeFiles/exchange_store_qt.dir/src/qt_main.cpp.s
+.PHONY : src/qt_main.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -377,7 +509,13 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... exchange_store_qt_autogen"
+	@echo "... exchange_store_qt_autogen_timestamp_deps"
 	@echo "... exchange_store_cp1"
+	@echo "... exchange_store_qt"
+	@echo "... exchange_store_qt_autogen/mocs_compilation.o"
+	@echo "... exchange_store_qt_autogen/mocs_compilation.i"
+	@echo "... exchange_store_qt_autogen/mocs_compilation.s"
 	@echo "... src/ConsoleUI.o"
 	@echo "... src/ConsoleUI.i"
 	@echo "... src/ConsoleUI.s"
@@ -393,6 +531,9 @@ help:
 	@echo "... src/ExchangeService_stub.o"
 	@echo "... src/ExchangeService_stub.i"
 	@echo "... src/ExchangeService_stub.s"
+	@echo "... src/QtUI.o"
+	@echo "... src/QtUI.i"
+	@echo "... src/QtUI.s"
 	@echo "... src/Receipt.o"
 	@echo "... src/Receipt.i"
 	@echo "... src/Receipt.s"
@@ -408,6 +549,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/qt_main.o"
+	@echo "... src/qt_main.i"
+	@echo "... src/qt_main.s"
 .PHONY : help
 
 

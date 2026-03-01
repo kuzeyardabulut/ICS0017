@@ -33,13 +33,25 @@ ExchangeResult ExchangeService::executeExchange(const ExchangeRequest &request) 
         return result;
     }
 
+
     double locIn = request.amountFrom * from->buyToLoc;
+    if (to->sellToLoc <= 0.0) {
+        result.message = "Invalid exchange rate: target currency sellToLOC is zero or negative.";
+        return result;
+    }
     double amountTo = locIn / to->sellToLoc;
     double costLoc = amountTo * to->buyToLoc;
     double profitLoc = locIn - costLoc;
 
     if (to->balance < amountTo) {
-        result.message = "Insufficient reserve in target currency.";
+        std::ostringstream dbg;
+        dbg.setf(std::ios::fixed);
+        dbg.precision(6);
+        dbg << "Insufficient reserve in target currency. "
+            << "[Reserve: " << to->balance
+            << ", Required: " << amountTo
+            << ", Rate: " << to->sellToLoc << "]";
+        result.message = dbg.str();
         return result;
     }
 
